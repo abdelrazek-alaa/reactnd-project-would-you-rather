@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import TabPanel from "./TabPanel";
 import AnsweredQuestions from "./AnsweredQuestions";
 import UnansweredQuestions from "./UnansweredQuestions";
+import { Grid } from "@mui/material";
 
 export default function QuestionsContainer() {
   const [value, setValue] = React.useState(0);
@@ -14,26 +15,23 @@ export default function QuestionsContainer() {
   };
 
   return (
-    <Box
-      sx={{
-        width: "100",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange}>
-          <Tab label="Unanswered Questions" />
-          <Tab label="Answered Questions" />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <UnansweredQuestions />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <AnsweredQuestions />
-      </TabPanel>
-    </Box>
+    <Grid container direction="row" justifyContent="center">
+      <Grid item xs={12} md={6}>
+        <Box sx={{ border: 1, borderColor: "divider", width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs value={value} onChange={handleChange} centered>
+              <Tab label="Unanswered Questions" />
+              <Tab label="Answered Questions" />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <UnansweredQuestions />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <AnsweredQuestions />
+          </TabPanel>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

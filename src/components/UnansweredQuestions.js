@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Question from "./Question";
 
 class UnansweredQuestions extends Component {
   render() {
     const { unansweredQuestionsIds } = this.props;
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <div>
         <ul>
-          {unansweredQuestionsIds.map((id) => (
-            <li key={id}>Question id {id}</li>
+          {unansweredQuestionsIds.map((qid) => (
+            <Question key={qid} questionId={qid} />
           ))}
         </ul>
       </div>
