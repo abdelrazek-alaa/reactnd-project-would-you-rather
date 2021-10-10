@@ -3,6 +3,7 @@ import "../App.css";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import QuestionsContainer from "./QuestionsContainer";
+import NavBar from "./NavBar";
 
 class App extends Component {
   componentDidMount() {
@@ -10,7 +11,12 @@ class App extends Component {
   }
   render() {
     const { loading } = this.props;
-    return <div>{loading === true ? null : <QuestionsContainer />}</div>;
+    return (
+      <div>
+        {loading === true ? null : <NavBar />}
+        {loading === true ? null : <QuestionsContainer />}
+      </div>
+    );
   }
 }
 
