@@ -4,25 +4,36 @@ import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import QuestionsContainer from "./QuestionsContainer";
 import NavBar from "./NavBar";
+import LoadingBar from "react-redux-loading-bar";
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    const { loading } = this.props;
+    const { loadingBar } = this.props;
+    let loading = true;
+    if (loadingBar === 0) {
+      loading = false;
+    }
+    if (loading) {
+      return (
+        <LoadingBar style={{ backgroundColor: "#1976d2", height: "5px" }} />
+      );
+    }
+
     return (
       <div>
-        {loading === true ? null : <NavBar />}
-        {loading === true ? null : <QuestionsContainer />}
+        <NavBar />
+        <QuestionsContainer />
       </div>
     );
   }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ loadingBar }) {
   return {
-    loading: authedUser === null,
+    loadingBar: loadingBar.default,
   };
 }
 
