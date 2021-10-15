@@ -9,8 +9,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import { connect } from "react-redux";
+import { setAuthedUser } from "../actions/authedUser";
+import { withRouter } from "react-router-dom";
 
-function SignIn() {
+function SignIn(props) {
+  const { users, usersIds, dispatch, history } = props;
+
   const [user, setUser] = React.useState("");
 
   const handleChange = (event) => {
@@ -19,7 +24,10 @@ function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(user);
+    if (user) {
+      dispatch(setAuthedUser(user));
+      history.push("/");
+    }
   };
 
   return (
@@ -71,9 +79,11 @@ function SignIn() {
                 label="user"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>User 1</MenuItem>
-                <MenuItem value={20}>User 2 </MenuItem>
-                <MenuItem value={30}>User 3</MenuItem>
+                {usersIds.map((uid) => (
+                  <MenuItem key={uid} value={uid}>
+                    {users[uid].name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -83,6 +93,7 @@ function SignIn() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={user === ""}
           >
             Sign In
           </Button>
@@ -92,4 +103,11 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+function mapStateToProps({ users }) {
+  return {
+    usersIds: Object.keys(users),
+    users,
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(SignIn));

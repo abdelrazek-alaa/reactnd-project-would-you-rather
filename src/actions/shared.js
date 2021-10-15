@@ -26,7 +26,6 @@ export function handleInitialData() {
       ([users, questions]) => {
         dispatch(receiveUsers(users));
         dispatch(receiveQuestions(questions));
-        dispatch(setAuthedUser("johndoe")); // temporary dispatch for testing purpose
         dispatch(hideLoading());
       }
     );
