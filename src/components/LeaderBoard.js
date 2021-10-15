@@ -9,7 +9,13 @@ class LeaderBoard extends Component {
 }
 function mapStateToProps({ users }) {
   return {
-    usersIds: Object.keys(users),
+    usersIds: Object.keys(users).sort((a, b) => {
+      const a_score =
+        Object.keys(users[a].answers).length + users[a].questions.length;
+      const b_score =
+        Object.keys(users[b].answers).length + users[b].questions.length;
+      return b_score - a_score;
+    }),
   };
 }
 export default connect(mapStateToProps)(LeaderBoard);
