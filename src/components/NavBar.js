@@ -47,13 +47,22 @@ function NavBar({ avatarURL, userName, dispatch }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem to="/" exact component={NavLink}>
+      <MenuItem
+        to="/"
+        exact
+        component={NavLink}
+        onClick={handleMobileMenuClose}
+      >
         <p>Home</p>
       </MenuItem>
-      <MenuItem to="/add" component={NavLink}>
+      <MenuItem to="/add" component={NavLink} onClick={handleMobileMenuClose}>
         <p>New Question</p>
       </MenuItem>
-      <MenuItem to="/leaderboard" component={NavLink}>
+      <MenuItem
+        to="/leaderboard"
+        component={NavLink}
+        onClick={handleMobileMenuClose}
+      >
         <p>Leader Board</p>
       </MenuItem>
       <MenuItem onClick={handleLogOut}>

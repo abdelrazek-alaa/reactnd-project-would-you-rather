@@ -15,7 +15,7 @@ export default function QuestionsContainer() {
   };
 
   return (
-    <Grid container direction="row" justifyContent="center">
+    <Grid mt={2} container direction="row" justifyContent="center">
       <Grid item xs={12} md={6}>
         <Box sx={{ border: 1, borderColor: "divider", width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -7,11 +7,9 @@ class AnsweredQuestions extends Component {
     const { answeredQuestionsIds } = this.props;
     return (
       <div>
-        <ul>
-          {answeredQuestionsIds.map((qid) => (
-            <Question key={qid} questionId={qid} />
-          ))}
-        </ul>
+        {answeredQuestionsIds.map((qid) => (
+          <Question key={qid} questionId={qid} />
+        ))}
       </div>
     );
   }

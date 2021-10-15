@@ -19,18 +19,22 @@ class PollDetails extends Component {
     }
 
     return (
-      <Grid mt={2} container item direction="row" justifyContent="center">
-        <Card sx={{ border: 1, borderColor: "divider" }}>
-          <CardHeader
-            avatar={<Avatar src={authorAvatarURL} aria-label="avatar"></Avatar>}
-            title={`Asked by ${authorName}`}
-          />
-          <CardContent>
-            <Typography variant="h6">Results:</Typography>
-            <QuestionOption question={question} optionOne={optionOne} />
-            <QuestionOption question={question} optionTwo={optionTwo} />
-          </CardContent>
-        </Card>
+      <Grid mt={2} container direction="row" justifyContent="center">
+        <Grid item xs={12} md={5}>
+          <Card sx={{ border: 1, borderColor: "divider" }}>
+            <CardHeader
+              avatar={
+                <Avatar src={authorAvatarURL} aria-label="avatar"></Avatar>
+              }
+              title={`Asked by ${authorName}`}
+            />
+            <CardContent>
+              <Typography variant="h6">Results:</Typography>
+              <QuestionOption question={question} optionOne={optionOne} />
+              <QuestionOption question={question} optionTwo={optionTwo} />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
     );
   }

@@ -22,7 +22,8 @@ class Question extends Component {
           border: 1,
           borderColor: "divider",
           p: 2,
-          margin: 1,
+          mx: "auto",
+          mb: 2,
           maxWidth: 500,
           flexGrow: 1,
         }}

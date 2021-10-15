@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
+import { Typography } from "@mui/material";
 
 class UnansweredQuestions extends Component {
   render() {
     const { unansweredQuestionsIds } = this.props;
-    //console.log(this.props);
     return (
       <div>
-        <ul>
-          {unansweredQuestionsIds.map((qid) => (
-            <Question key={qid} questionId={qid} />
-          ))}
-        </ul>
+        {unansweredQuestionsIds.map((qid) => (
+          <Question key={qid} questionId={qid} />
+        ))}
+        {unansweredQuestionsIds.length === 0 && (
+          <Typography variant="subtitle1" align="center">
+            you have answered all the questions.
+          </Typography>
+        )}
       </div>
     );
   }
