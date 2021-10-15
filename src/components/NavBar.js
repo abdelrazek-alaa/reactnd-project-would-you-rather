@@ -11,8 +11,10 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { setAuthedUser } from "../actions/authedUser";
 
-function NavBar({ avatarURL, userName }) {
+function NavBar({ avatarURL, userName, dispatch }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -26,7 +28,7 @@ function NavBar({ avatarURL, userName }) {
   };
 
   const handleLogOut = () => {
-    console.log("under construction");
+    dispatch(setAuthedUser(null));
   };
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -45,13 +47,13 @@ function NavBar({ avatarURL, userName }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem to="/" exact component={NavLink}>
         <p>Home</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem to="/add" component={NavLink}>
         <p>New Question</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem to="/leaderboard" component={NavLink}>
         <p>Leader Board</p>
       </MenuItem>
       <MenuItem onClick={handleLogOut}>
@@ -67,9 +69,15 @@ function NavBar({ avatarURL, userName }) {
           <Toolbar>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">New Question</Button>
-              <Button color="inherit">Leader Board</Button>
+              <Button to="/" exact component={NavLink} color="inherit">
+                Home
+              </Button>
+              <Button to="/add" component={NavLink} color="inherit">
+                New Question
+              </Button>
+              <Button to="/leaderboard" component={NavLink} color="inherit">
+                Leader Board
+              </Button>
             </Box>
             <Box sx={{ display: { xs: "flex" } }}>
               <Typography

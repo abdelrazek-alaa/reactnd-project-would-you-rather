@@ -16,7 +16,6 @@ import {
   removeUserQuestionAnswer,
   addUserQuestion,
 } from "./users";
-import { setAuthedUser } from "./authedUser";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 export function handleInitialData() {

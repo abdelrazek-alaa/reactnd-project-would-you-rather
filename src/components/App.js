@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import QuestionsContainer from "./QuestionsContainer";
 import NavBar from "./NavBar";
+import NewQuestion from "./NewQuestion";
+import LeaderBoard from "./LeaderBoard";
+import QuestionId from "./QuestionId";
+import SignIn from "./SignIn";
 import LoadingBar from "react-redux-loading-bar";
+import { Route } from "react-router-dom";
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    const { loadingBar } = this.props;
+    const { loadingBar, authedUser } = this.props;
     let loading = true;
     if (loadingBar === 0) {
       loading = false;
@@ -22,18 +27,26 @@ class App extends Component {
       );
     }
 
+    if (authedUser === null) {
+      return <SignIn />;
+    }
+
     return (
       <div>
         <NavBar />
-        <QuestionsContainer />
+        <Route path="/" exact component={QuestionsContainer} />
+        <Route path="/add" component={NewQuestion} />
+        <Route path="/leaderboard" component={LeaderBoard} />
+        <Route path="/questions/:id" component={QuestionId} />
       </div>
     );
   }
 }
 
-function mapStateToProps({ loadingBar }) {
+function mapStateToProps({ loadingBar, authedUser }) {
   return {
     loadingBar: loadingBar.default,
+    authedUser,
   };
 }
 

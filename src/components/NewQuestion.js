@@ -28,10 +28,11 @@ class NewQuestion extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     const { optionOneText, optionTwoText } = this.state;
     if (optionOneText && optionTwoText) {
       dispatch(handleAddQuestion(optionOneText, optionTwoText));
+      history.push("/");
     }
   };
 

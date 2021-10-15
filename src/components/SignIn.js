@@ -14,7 +14,7 @@ import { setAuthedUser } from "../actions/authedUser";
 import { withRouter } from "react-router-dom";
 
 function SignIn(props) {
-  const { users, usersIds, dispatch, history } = props;
+  const { users, usersIds, dispatch } = props;
 
   const [user, setUser] = React.useState("");
 
@@ -26,7 +26,6 @@ function SignIn(props) {
     event.preventDefault();
     if (user) {
       dispatch(setAuthedUser(user));
-      history.push("/");
     }
   };
 

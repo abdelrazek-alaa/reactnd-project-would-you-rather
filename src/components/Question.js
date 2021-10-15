@@ -5,8 +5,14 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class Question extends Component {
+  handleClick = () => {
+    const { questionId, history } = this.props;
+    history.push(`questions/${questionId}`);
+  };
+
   render() {
     const { authorAvatarURL, authorName, qOptionOne } = this.props;
     //console.log(this.props);
@@ -44,7 +50,9 @@ class Question extends Component {
                 </Typography>
               </Grid>
               <Grid item>
-                <Button variant="outlined">View Poll</Button>
+                <Button onClick={this.handleClick} variant="outlined">
+                  View Poll
+                </Button>
               </Grid>
             </Grid>
           </Grid>
@@ -63,4 +71,4 @@ function mapStateToProps({ questions, users }, { questionId }) {
   };
 }
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));
