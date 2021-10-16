@@ -15,13 +15,13 @@ This project helped me to solidify my understanding of React and Redux. i have p
 
 ### used libraries/packages :
 
-Material UI
-React
-Redux
-redux-thunk (middleware)
-react-redux (react bindings for Redux)
-react-router-dom
-react-redux-loading-bar
+1. Material UI
+1. React
+1. Redux
+1. redux-thunk (middleware)
+1. react-redux (react bindings for Redux)
+1. react-router-dom
+1. react-redux-loading-bar
 
 ### Quick Start
 
@@ -34,3 +34,6 @@ To get this project up and running locally on your computer, enter the following
 ```
 
 Open the browser to http://localhost:3000/
+
+## Live preview
+https://reactnd-project-would-you-rather-green.vercel.app/
