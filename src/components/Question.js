@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -7,60 +7,58 @@ import Button from "@mui/material/Button";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-class Question extends Component {
-  handleClick = () => {
-    const { questionId, history } = this.props;
+function Question(props) {
+  const handleClick = () => {
+    const { questionId, history } = props;
     history.push(`questions/${questionId}`);
   };
 
-  render() {
-    const { authorAvatarURL, authorName, qOptionOne } = this.props;
-    //console.log(this.props);
-    return (
-      <Paper
-        sx={{
-          border: 1,
-          borderColor: "divider",
-          p: 2,
-          mx: "auto",
-          mb: 2,
-          maxWidth: 500,
-          flexGrow: 1,
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid p={3} mr={3} item>
-            <Avatar
-              sx={{ width: 100, height: 100 }}
-              alt={`${authorName} Avatar`}
-              src={authorAvatarURL}
-            />
-          </Grid>
+  const { authorAvatarURL, authorName, qOptionOne } = props;
 
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="h6" component="h6">
-                  {authorName} Asks:
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                  Would you rather
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {qOptionOne} or ...
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Button onClick={this.handleClick} variant="outlined">
-                  View Poll
-                </Button>
-              </Grid>
+  return (
+    <Paper
+      sx={{
+        border: 1,
+        borderColor: "divider",
+        p: 2,
+        mx: "auto",
+        mb: 2,
+        maxWidth: 500,
+        flexGrow: 1,
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid p={3} mr={3} item>
+          <Avatar
+            sx={{ width: 100, height: 100 }}
+            alt={`${authorName} Avatar`}
+            src={authorAvatarURL}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <Typography gutterBottom variant="h6" component="h6">
+                {authorName} Asks:
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                Would you rather
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {qOptionOne} or ...
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button onClick={handleClick} variant="outlined">
+                View Poll
+              </Button>
             </Grid>
           </Grid>
         </Grid>
-      </Paper>
-    );
-  }
+      </Grid>
+    </Paper>
+  );
 }
 
 function mapStateToProps({ questions, users }, { questionId }) {

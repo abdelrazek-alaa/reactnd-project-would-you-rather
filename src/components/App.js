@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import "../App.css";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
@@ -11,36 +11,34 @@ import SignIn from "./SignIn";
 import LoadingBar from "react-redux-loading-bar";
 import { Route } from "react-router-dom";
 
-class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(handleInitialData());
-  }
-  render() {
-    const { loadingBar, authedUser } = this.props;
-    let loading = true;
-    if (loadingBar === 0) {
-      loading = false;
-    }
-    if (loading) {
-      return (
-        <LoadingBar style={{ backgroundColor: "#1976d2", height: "5px" }} />
-      );
-    }
+function App(props) {
+  const { loadingBar, authedUser, dispatch } = props;
 
-    if (authedUser === null) {
-      return <SignIn />;
-    }
+  useEffect(() => {
+    dispatch(handleInitialData());
+  }, [dispatch]);
 
-    return (
-      <div>
-        <NavBar />
-        <Route path="/" exact component={QuestionsContainer} />
-        <Route path="/add" component={NewQuestion} />
-        <Route path="/leaderboard" component={LeaderBoard} />
-        <Route path="/questions/:id" component={QuestionId} />
-      </div>
-    );
+  let loading = true;
+  if (loadingBar === 0) {
+    loading = false;
   }
+  if (loading) {
+    return <LoadingBar style={{ backgroundColor: "#1976d2", height: "5px" }} />;
+  }
+
+  if (authedUser === null) {
+    return <SignIn />;
+  }
+
+  return (
+    <div>
+      <NavBar />
+      <Route path="/" exact component={QuestionsContainer} />
+      <Route path="/add" component={NewQuestion} />
+      <Route path="/leaderboard" component={LeaderBoard} />
+      <Route path="/questions/:id" component={QuestionId} />
+    </div>
+  );
 }
 
 function mapStateToProps({ loadingBar, authedUser }) {

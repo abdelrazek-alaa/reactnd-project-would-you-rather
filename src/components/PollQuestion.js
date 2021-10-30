@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -13,82 +13,77 @@ import FormLabel from "@mui/material/FormLabel";
 import ErrorPage from "./ErrorPage";
 import { handleSaveQuestionAnswer } from "../actions/shared";
 
-class PollQuestion extends Component {
-  state = {
-    formVal: "",
+function PollQuestion(props) {
+  const [formVal, setFormVal] = useState("");
+
+  const handleChange = (e) => {
+    setFormVal(e.target.value);
   };
-  handleChange = (e) => {
-    this.setState(() => ({
-      formVal: e.target.value,
-    }));
-  };
-  handleSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { authedUser, questionId, dispatch } = this.props;
-    const answer = this.state.formVal;
+    const { authedUser, questionId, dispatch } = props;
+    const answer = formVal;
     if (answer) {
       dispatch(
         handleSaveQuestionAnswer({ authedUser, qid: questionId, answer })
       );
     }
   };
-  render() {
-    const { formVal } = this.state;
-    const { authorName, authorAvatarURL, optionOne, optionTwo, question } =
-      this.props;
-    //console.log(this.props);
-    if (question === null) {
-      return <ErrorPage />;
-    }
-    return (
-      <Grid mt={2} container item direction="row" justifyContent="center">
-        <Card
-          sx={{
-            border: 1,
-            borderColor: "divider",
-            width: { xs: "90%", md: "35%" },
-          }}
-        >
-          <CardHeader
-            avatar={<Avatar src={authorAvatarURL} aria-label="avatar"></Avatar>}
-            title={`${authorName} asks:`}
-            sx={{ borderBottom: 1, borderColor: "divider" }}
-          />
-          <CardContent>
-            <form onSubmit={this.handleSubmit}>
-              <FormControl sx={{ width: "100%" }} component="fieldset">
-                <FormLabel component="legend">Would You Rather...</FormLabel>
-                <RadioGroup
-                  aria-label="gender"
-                  defaultValue=""
-                  name="radio-buttons-group"
-                  onChange={this.handleChange}
-                >
-                  <FormControlLabel
-                    value={"optionOne"}
-                    control={<Radio />}
-                    label={optionOne}
-                  />
-                  <FormControlLabel
-                    value={"optionTwo"}
-                    control={<Radio />}
-                    label={optionTwo}
-                  />
-                </RadioGroup>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  disabled={formVal === ""}
-                >
-                  Submit
-                </Button>
-              </FormControl>
-            </form>
-          </CardContent>
-        </Card>
-      </Grid>
-    );
+
+  const { authorName, authorAvatarURL, optionOne, optionTwo, question } = props;
+
+  if (question === null) {
+    return <ErrorPage />;
   }
+  return (
+    <Grid mt={2} container item direction="row" justifyContent="center">
+      <Card
+        sx={{
+          border: 1,
+          borderColor: "divider",
+          width: { xs: "90%", md: "35%" },
+        }}
+      >
+        <CardHeader
+          avatar={<Avatar src={authorAvatarURL} aria-label="avatar"></Avatar>}
+          title={`${authorName} asks:`}
+          sx={{ borderBottom: 1, borderColor: "divider" }}
+        />
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <FormControl sx={{ width: "100%" }} component="fieldset">
+              <FormLabel component="legend">Would You Rather...</FormLabel>
+              <RadioGroup
+                aria-label="gender"
+                defaultValue=""
+                name="radio-buttons-group"
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  value={"optionOne"}
+                  control={<Radio />}
+                  label={optionOne}
+                />
+                <FormControlLabel
+                  value={"optionTwo"}
+                  control={<Radio />}
+                  label={optionTwo}
+                />
+              </RadioGroup>
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={formVal === ""}
+              >
+                Submit
+              </Button>
+            </FormControl>
+          </form>
+        </CardContent>
+      </Card>
+    </Grid>
+  );
 }
 
 function mapStateToProps({ authedUser, questions, users }, { questionId }) {

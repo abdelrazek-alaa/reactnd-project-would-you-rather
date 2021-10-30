@@ -1,18 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
 
-class AnsweredQuestions extends Component {
-  render() {
-    const { answeredQuestionsIds } = this.props;
-    return (
-      <div>
-        {answeredQuestionsIds.map((qid) => (
-          <Question key={qid} questionId={qid} />
-        ))}
-      </div>
-    );
-  }
+function AnsweredQuestions(props) {
+  const { answeredQuestionsIds } = props;
+  return (
+    <div>
+      {answeredQuestionsIds.map((qid) => (
+        <Question key={qid} questionId={qid} />
+      ))}
+    </div>
+  );
 }
 
 function mapStateToProps({ users, questions, authedUser }) {

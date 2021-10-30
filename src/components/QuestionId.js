@@ -1,18 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PollDetails from "./PollDetails";
 import PollQuestion from "./PollQuestion";
 
-class QuestionId extends Component {
-  render() {
-    const { IsQuestionAnswered, qid } = this.props;
+function QuestionId(props) {
+  const { IsQuestionAnswered, qid } = props;
 
-    if (IsQuestionAnswered) {
-      return <PollDetails questionId={qid} />;
-    }
-
-    return <PollQuestion questionId={qid} />;
+  if (IsQuestionAnswered) {
+    return <PollDetails questionId={qid} />;
   }
+
+  return <PollQuestion questionId={qid} />;
 }
 
 function mapStateToProps({ authedUser, users }, { match }) {
